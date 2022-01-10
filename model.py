@@ -1,6 +1,12 @@
-
 from flask_login import UserMixin
 from app import db
+
+
+def FormatDateNow():
+    import datetime
+    now = datetime.datetime.now()
+    change = now.strftime("%y/%m/%d %H:%M %p")
+    return datetime.datetime.strptime(change, "%y/%m/%d %H:%M %p")
 
 
 class User(db.Model, UserMixin):
@@ -13,3 +19,25 @@ class User(db.Model, UserMixin):
     Language = db.Column(db.String(20), nullable=False)
 
 
+class Position(db.Model, UserMixin):
+    CityCode = db.Column(db.String(5), nullable=False, primary_key=True)
+    Name = db.Column(db.String(20), nullable=False)
+    Province = db.Column(db.String(20), nullable=False)
+    Nation = db.Column(db.String(20), nullable=False)
+    Zone = db.Column(db.String(20), nullable=False)
+
+    #def __repr__(self):
+     #   return "Position('{self.Zone}')"
+
+
+class Event(db.Model, UserMixin):
+    Number = db.Column(db.Integer, primary_key=True)
+    Name = db.Column(db.String(20), nullable=False)
+    Organiser = db.Column(db.String(20), nullable=False)
+    Position = db.Column(db.String(20), db.ForeignKey(Position.Zone), nullable=False)
+    Date = db.Column(db.DateTime, nullable=False, default=FormatDateNow())
+    Number_of_entrance = db.Column(db.Integer, nullable=False)
+    Ticket_price = db.Column(db.Integer)
+    Typology = db.Column(db.String(20))
+
+db.create_all()

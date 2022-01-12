@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from logging import FileHandler, WARNING
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from form import LoginForm, RegisterForm
+from form import LoginForm, RegisterForm, EventForm
 from flask_login import UserMixin, login_user,LoginManager,login_required,logout_user, current_user
 
 
@@ -73,6 +73,26 @@ def login():
 #@login_required
 def home():
     return render_template('homepage/index.html')
+
+@app.route('/newevent',methods=['GET', 'POST'])
+#@login_required
+def newevent():
+    from model import Event
+    form = EventForm()
+    if form.validate_on_submit:
+        event = Event(Name=form.name.data, Organiser=form.organiser.data,
+                      Position=form.position.data, Date=form.data.data,
+                      Number_of_entrance= form.numberentrance.data, Ticket_price=form.price.data,Typology=form.typology.data)
+
+
+        flash('Event created!', 'success')
+        db.session.add(event)
+        db.session.commit()
+        return redirect(url_for('home'))
+    return render_template('create_event/index.html', form=form)
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -26,8 +26,8 @@ class Position(db.Model, UserMixin):
     Nation = db.Column(db.String(20), nullable=False)
     Zone = db.Column(db.String(20), nullable=False)
 
-    #def __repr__(self):
-     #   return "Position('{self.Zone}')"
+    # def __repr__(self):
+    #   return "Position('{self.Zone}')"
 
 
 class Event(db.Model, UserMixin):
@@ -39,5 +39,8 @@ class Event(db.Model, UserMixin):
     Number_of_entrance = db.Column(db.Integer, nullable=False)
     Ticket_price = db.Column(db.Integer)
     Typology = db.Column(db.String(20))
+
+
+
 
 db.create_all()

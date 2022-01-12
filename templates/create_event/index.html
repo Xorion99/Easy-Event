@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Form-v7 by Colorlib</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+
+	<!-- Main Style Css -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='create_event/style.css') }}">
+</head>
+<body class="form-v7">
+	<div class="page-content">
+		<div class="form-v7-content">
+			<div class="form-left">
+				<img src="/static/create_event/assets/img.jpg" alt="form" >
+				<p class="text-1">Create your event</p>
+			</div>
+			<form class="form-detail" action="/home" method="post" id="myform">
+				<div class="form-row">
+					{{ form.hidden_tag() }}
+                    {{ form.name }}
+                    <br>
+                    {{ form.organiser }}
+                    {{ form.position }}
+                    {{ form.data }}
+                    {{ form.time }}
+                    {{ form.numberentrance}}
+                    {{ form.price }}
+                    {{ form.typology }}
+                <!--
+				</div>
+				<div class="form-row">
+					<label for="your_email">E-MAIL</label>
+					<input type="text" name="your_email" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+				</div>
+
+				<div class="form-row">
+					<label for="password">PASSWORD</label>
+					<input type="password" name="password" id="password" class="input-text" required>
+				</div>
+				<div class="form-row">
+					<label for="comfirm_password">CONFIRM PASSWORD</label>
+					<input type="password" name="comfirm_password" id="comfirm_password" class="input-text" required>
+				-->
+				</div>
+
+				<div class="form-row-last">
+					{{ form.submit }}
+				</div>
+            </form>
+		</div>
+	</div>
+
+
+</body>
+</html>

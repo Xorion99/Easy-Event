@@ -74,17 +74,16 @@ def login():
 def home():
     return render_template('homepage/index.html')
 
-@app.route('/newevent',methods=['GET', 'POST'])
+@app.route('/newevent', methods=['GET', 'POST'])
 #@login_required
 def newevent():
     from model import Event
     form = EventForm()
-    if form.validate_on_submit:
-        event = Event(Name=form.name.data, Organiser=form.organiser.data,
+    if form.validate_on_submit():
+        event = Event(Name=form.name.data,Organiser=form.organiser.data,
                       Position=form.position.data, Date=form.data.data,
-                      Number_of_entrance= form.numberentrance.data, Ticket_price=form.price.data,Typology=form.typology.data)
-
-
+                      Number_of_entrance=form.numberentrance.data,Ticket_price=form.price.data,
+                      Typology=form.typology.data)
         flash('Event created!', 'success')
         db.session.add(event)
         db.session.commit()

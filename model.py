@@ -31,7 +31,7 @@ class Position(db.Model, UserMixin):
 
 
 class Event(db.Model, UserMixin):
-    Number = db.Column(db.Integer, primary_key=True)
+    Number = db.Column(db.Integer, primary_key=True, autoincrement=True)
     Name = db.Column(db.String(20), nullable=False)
     Organiser = db.Column(db.String(20), nullable=False)
     Position = db.Column(db.String(20), db.ForeignKey(Position.Zone), nullable=False)

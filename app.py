@@ -3,12 +3,16 @@ from flask_bootstrap import Bootstrap
 from logging import FileHandler, WARNING
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+
+import model
 from form import LoginForm, RegisterForm, EventForm
-from flask_login import UserMixin, login_user,LoginManager,login_required,logout_user, current_user
-
-
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 
 app = Flask(__name__)
+
+
+
+
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///DATABASE'
@@ -34,9 +38,10 @@ def load_user(user_id):
     from model import User
     return User.query.get(int(user_id))
 
+
 @app.route('/')
 def index():
-    form = RegisterForm()# put application's code here
+    form = RegisterForm()  # put application's code here
     return render_template('homepage/index.html', form=form)
 
 
@@ -68,29 +73,33 @@ def login():
     return render_template('login/index.html', form=form)
 
 
-
 @app.route('/home')
-#@login_required
+# @login_required
 def home():
     return render_template('homepage/index.html')
 
+
 @app.route('/newevent', methods=['GET', 'POST'])
-#@login_required
+# @login_required
 def newevent():
     from model import Event
+    from datetime import date,time,datetime
     form = EventForm()
     if form.validate_on_submit():
-        event = Event(Name=form.name.data,Organiser=form.organiser.data,
-                      Position=form.position.data, Date=form.data.data,
-                      Number_of_entrance=form.numberentrance.data,Ticket_price=form.price.data,
+        d = date(form.data.data)
+        datetime.date(year=0,mounth=0,day=0)
+        t = time(form.time.data)
+        datetime.time(hour=0,minute=0)
+        dt = datetime.combine(d, t)
+        event = Event(Name=form.name.data, Organiser=form.organiser.data,Date=dt,
+                      Position=form.position.data,
+                      Number_of_entrance=form.numberentrance.data, Ticket_price=form.price.data,
                       Typology=form.typology.data)
         flash('Event created!', 'success')
         db.session.add(event)
         db.session.commit()
         return redirect(url_for('home'))
     return render_template('create_event/index.html', form=form)
-
-
 
 
 if __name__ == '__main__':
@@ -100,5 +109,3 @@ if __name__ == '__main__':
 @app.before_first_request
 def setup_db():
     db.create_all()
-
-

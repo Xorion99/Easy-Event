@@ -6,6 +6,11 @@
     padding: 0;
     background: #e74c3c !important;
     }
+    header{
+        background-color: whitesmoke;
+        height: 22%;
+
+    }
 
     .searchbar{
     margin-bottom: auto;
@@ -25,6 +30,14 @@
     caret-color:transparent;
     line-height: 40px;
     transition: width 0.4s linear;
+    }
+
+    .uplogo{
+        position: relative;
+        width: auto;
+        height: 20px;
+        text-align: center;
+        padding: 3px;
     }
 
     .searchbar:hover > .search_input{
@@ -56,7 +69,7 @@
         font-family: "Berlin Sans FB Demi";
         font-size: 30px;
         left: 39%;
-        top: 40%;
+        top: 60%;
         color: rgb(255,255,255);
 
     }

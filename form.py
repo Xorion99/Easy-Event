@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, EmailField, IntegerField, DateField, TimeField
+from wtforms import StringField, PasswordField, SubmitField, EmailField, IntegerField, DateField, TimeField, DateTimeField
 from wtforms.validators import InputRequired, Length, ValidationError, Email, DataRequired, NumberRange
 
 
@@ -43,8 +43,7 @@ class EventForm(FlaskForm):
                        render_kw={"placeholder": "Organiser"})
     position = StringField(validators=[InputRequired(), Length(min=4, max=20)],
                        render_kw={"placeholder": "Zone"})
-    data = DateField(validators=[DataRequired(), Length(min=4, max=20)],
-                       render_kw={"placeholder": "Data"}, format='%m/%d/%Y,%h')
+    data = DateField(render_kw={"placeholder": "Data"})
     time = TimeField(validators=[InputRequired()], render_kw={"placeholder": "Time"})
 
     numberentrance = IntegerField(validators=[InputRequired()],
@@ -55,7 +54,5 @@ class EventForm(FlaskForm):
     typology = StringField(validators=[InputRequired(), Length(min=4, max=20)],
                        render_kw={"placeholder": "Typology"})
     submit = SubmitField("Create Event")
-
-
 
 

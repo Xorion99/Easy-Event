@@ -83,18 +83,29 @@ def home():
 # @login_required
 def newevent():
     from model import Event
-    from datetime import date,time,datetime
+    from datetime import date, time, datetime
     form = EventForm()
     if form.validate_on_submit():
-        d = date(form.data.data)
-        datetime.date(year=0,mounth=0,day=0)
-        t = time(form.time.data)
-        datetime.time(hour=0,minute=0)
-        dt = datetime.combine(d, t)
-        event = Event(Name=form.name.data, Organiser=form.organiser.data,Date=dt,
+        d = form.data.data
+
+        t = form.time.data
+        # we combine both time and date object togather and make another datetime object with name x as mention below
+        x = datetime.combine(d, t)
+
+        # this is the way how to format data, once you use this method it will return string
+        # string contains data and time with your provided format, but the problem is that
+        # we can't save this directly to sqlite database, because sqlite only support python datetime object
+        # if you want to display data from sqlite than you can use this way to format datetime and remove string from it.
+        formt = x.strftime("%d/%m/%Y %H:%M")
+        # please go to the console and see result how strftime works
+        print(formt)
+
+        dt = x
+        event = Event(Name=form.name.data, Organiser=form.organiser.data, Date=dt,
                       Position=form.position.data,
                       Number_of_entrance=form.numberentrance.data, Ticket_price=form.price.data,
                       Typology=form.typology.data)
+
         flash('Event created!', 'success')
         db.session.add(event)
         db.session.commit()

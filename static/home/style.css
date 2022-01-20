@@ -14,7 +14,7 @@
 
     .searchbar{
     margin-bottom: auto;
-    margin-top: auto;
+    margin-top: 17%;
     height: 60px;
     background-color: #353b48;
     border-radius: 30px;
@@ -69,7 +69,35 @@
         font-family: "Berlin Sans FB Demi";
         font-size: 30px;
         left: 39%;
-        top: 60%;
+        top: 50%;
         color: rgb(255,255,255);
 
+    }
+        .button a{
+        text-decoration: none;
+    }
+    .button {
+      position: relative;
+      left: 42%;
+      top: 10%;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 20px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    .button a {
+        text-decoration: none;
+    }
+    .table-dark{
+        width: 90%;
+        position: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -25%;
     }

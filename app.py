@@ -3,6 +3,7 @@ from flask_bootstrap import Bootstrap
 from logging import FileHandler, WARNING
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from datetime import datetime
 
 import model
 from form import LoginForm, RegisterForm, EventForm
@@ -83,7 +84,7 @@ def home():
 # @login_required
 def newevent():
     from model import Event
-    from datetime import date, time, datetime
+
     form = EventForm()
     if form.validate_on_submit():
         d = form.data.data
@@ -100,8 +101,8 @@ def newevent():
         # please go to the console and see result how strftime works
         print(formt)
 
-        dt = x
-        event = Event(Name=form.name.data, Organiser=form.organiser.data, Date=dt,
+       # dt = x
+        event = Event(Name=form.name.data, Organiser=form.organiser.data, Date=x,
                       Position=form.position.data,
                       Number_of_entrance=form.numberentrance.data, Ticket_price=form.price.data,
                       Typology=form.typology.data)

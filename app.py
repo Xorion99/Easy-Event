@@ -40,10 +40,16 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-@app.route('/')
-def index():
-    form = RegisterForm()  # put application's code here
-    return render_template('homepage/index.html', form=form)
+@app.route('/', methods=['GET', 'POST'], defaults={"page": 1})
+@app.route('/<int:page>', methods=['GET', 'POST'])
+# @login_required
+def index(page):
+    from model import Event
+    page = page
+    pages = 5
+    event = Event.query.paginate(page,pages,error_out=False)
+    #event = Event.query.filter().all()
+    return render_template('homepage/index.html', event=event)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -74,10 +80,6 @@ def login():
     return render_template('login/index.html', form=form)
 
 
-@app.route('/home')
-# @login_required
-def home():
-    return render_template('homepage/index.html')
 
 
 @app.route('/newevent', methods=['GET', 'POST'])

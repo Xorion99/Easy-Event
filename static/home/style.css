@@ -73,9 +73,7 @@
         color: rgb(255,255,255);
 
     }
-        .button a{
-        text-decoration: none;
-    }
+
     .button {
       position: relative;
       left: 42%;
@@ -99,5 +97,21 @@
         position: center;
         margin-left: auto;
         margin-right: auto;
-        margin-top: -25%;
+        margin-top: -20%;
+    }
+    .button-join-table{
+        width: 60%;
+        background-color: #76b852;
+        font-family: Amiri;
+        color: white;
+        position: center;
+        margin-right: auto;
+        margin-left: auto;
+
+    }
+    .pagination{
+        position: relative;
+        margin-left: 5%;
+        margin-right: auto;
+
     }

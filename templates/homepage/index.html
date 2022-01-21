@@ -34,6 +34,8 @@
       </div>
     </div>
 
+<div class="row">
+<div class="col">
   <table class="table table-dark">
   <thead>
     <tr>
@@ -47,20 +49,41 @@
     </tr>
   </thead>
   <tbody>
+  {% for event in event.items %}
     <tr>
-      <th scope="row"></th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+        <td>{{ event.Name }}</td>
+        <td>{{ event.Organiser }}</td>
+        <td>{{ event.Position }}</td>
+        <td>{{ event.Date }}</td>
+        <td>{{ event.Ticket_price }}</td>
+        <td>{{ event.Typology }}</td>
+        <td> <input type="button" href="#"  class="button-join-table" value="Join" /></td>
     </tr>
+  {% endfor %}
 
 
   </tbody>
-</table>
+ </table>
+
+<nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if event.has_prev %}
+                      <li class="page-item"> <a class="page-link" href="{{ url_for('index', page=event.prev_num) }}">Previous</a></li>
+                    {% else %}
+                      <li class="page-item"><a class="page-link btn disabled" href="#">Previous</a></li>
+                    {% endif %}
+
+
+                    {% if event.has_next %}
+                      <li class="page-item"> <a class="page-link" href="{{ url_for('index', page=event.next_num) }}">Next</a></li>
+                    {% else %}
+                      <li class="page-item"><a class="page-link btn disabled" href="#">Next</a></li>
+                    {% endif %}
+
+                </ul>
+    </nav>
+</div>
+</div>
   </body>
 
 

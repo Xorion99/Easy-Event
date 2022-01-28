@@ -56,3 +56,4 @@ class EventForm(FlaskForm):
     submit = SubmitField("Create Event")
 
 
+

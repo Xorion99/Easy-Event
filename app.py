@@ -1,10 +1,10 @@
-from flask import Flask, render_template, url_for, redirect, flash
+from flask import Flask, render_template, url_for, redirect, flash, request
 from flask_bootstrap import Bootstrap
 from logging import FileHandler, WARNING
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from datetime import datetime
-
+from sqlalchemy import or_
 import model
 from form import LoginForm, RegisterForm, EventForm
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
@@ -47,8 +47,14 @@ def index(page):
     from model import Event
     page = page
     pages = 5
-    event = Event.query.paginate(page,pages,error_out=False)
-    #event = Event.query.filter().all()
+    event = Event.query.paginate(page, pages, error_out=False)
+    if request.method == 'POST' and 'tag' in request.form:
+        tag = request.form["tag"]
+        search = "%{}%".format(tag)
+        event = Event.query.filter(Event.Position.like(search)).paginate(per_page=pages, error_out=False)
+        return render_template('homepage/index.html',event=event, tag=tag)
+
+
     return render_template('homepage/index.html', event=event)
 
 

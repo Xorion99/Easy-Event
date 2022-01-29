@@ -6,7 +6,7 @@ from flask_bcrypt import Bcrypt
 from datetime import datetime
 from sqlalchemy import or_
 import model
-from form import LoginForm, RegisterForm, EventForm
+from form import LoginForm, RegisterForm, EventForm, JoinForm
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 
 app = Flask(__name__)
@@ -52,7 +52,10 @@ def index(page):
         tag = request.form["tag"]
         search = "%{}%".format(tag)
         event = Event.query.filter(Event.Position.like(search)).paginate(per_page=pages, error_out=False)
-        return render_template('homepage/index.html',event=event, tag=tag)
+        empty = ""
+        if not event.items:
+            empty = "there are not event in this zone"
+        return render_template('homepage/index.html', event=event, tag=tag, empty=empty)
 
 
     return render_template('homepage/index.html', event=event)
@@ -82,7 +85,8 @@ def login():
         user = User.query.filter_by(Username=form.username.data).first()
         if user:
             if bcrypt.check_password_hash(user.Password, form.password.data):
-                return redirect(url_for('home'))
+                return redirect(url_for('index'))
+
     return render_template('login/index.html', form=form)
 
 
@@ -118,8 +122,14 @@ def newevent():
         flash('Event created!', 'success')
         db.session.add(event)
         db.session.commit()
-        return redirect(url_for('home'))
+        return redirect(url_for('index'))
     return render_template('create_event/index.html', form=form)
+
+
+@app.route('/join')
+def join():
+    form = JoinForm()
+    return render_template('join/index.html', form = form)
 
 
 if __name__ == '__main__':

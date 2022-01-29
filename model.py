@@ -1,12 +1,14 @@
 from flask_login import UserMixin
 from app import db
+from datetime import datetime
 
 
 def FormatDateNow():
-    import datetime
+
     now = datetime.datetime.now()
     change = now.strftime("%y/%m/%d %H:%M %p")
     return datetime.datetime.strptime(change, "%y/%m/%d %H:%M %p")
+
 
 
 class User(db.Model, UserMixin):
@@ -39,6 +41,8 @@ class Event(db.Model, UserMixin):
     Number_of_entrance = db.Column(db.Integer, nullable=False)
     Ticket_price = db.Column(db.Integer)
     Typology = db.Column(db.String(20))
+
+
 
 
 

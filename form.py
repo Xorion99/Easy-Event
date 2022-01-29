@@ -15,7 +15,7 @@ class RegisterForm(FlaskForm):
                              render_kw={"placeholder": "Password"})
     Confirm_password = PasswordField(validators=[InputRequired(), Length(min=8, max=40)],
                                      render_kw={"placeholder": "Confirm Password"})
-    Age = IntegerField(validators=[InputRequired()],
+    Age = StringField(validators=[InputRequired()],
                                   render_kw={"placeholder": "Age"})
     Language = StringField(validators=[InputRequired()],
                            render_kw={"placeholder": "Language"})
@@ -55,5 +55,9 @@ class EventForm(FlaskForm):
                        render_kw={"placeholder": "Typology"})
     submit = SubmitField("Create Event")
 
+
+class JoinForm(FlaskForm):
+    email = EmailField(validators=[DataRequired(), Email()],render_kw={"placeholder": "Enter your email here"})
+    submit = SubmitField("Join Event")
 
 

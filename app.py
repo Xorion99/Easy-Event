@@ -131,6 +131,9 @@ def join():
     form = JoinForm()
     return render_template('join/index.html', form = form)
 
+@app.route('/rate')
+def rate():
+    return render_template('rate/index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

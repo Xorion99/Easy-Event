@@ -68,14 +68,14 @@
         <td>{{ event.Date }}</td>
         <td>{{ event.Ticket_price }}</td>
         <td>{{ event.Typology }}</td>
-        <td> <input type="button" href="#"  class="button-join-table" value="Join" /></td>
+        <td> <input type="button" onclick="window.location.href='/join'"  class="button-join-table" value="Join"  /> </td>
+
     </tr>
       {% endif %}
   {% endfor %}
 
 
   {%endif%}
-
 
   </tbody>
  </table>

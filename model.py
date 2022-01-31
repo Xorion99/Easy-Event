@@ -44,6 +44,13 @@ class Event(db.Model, UserMixin):
 
 
 
+class Feedback(db.Model):
+    No = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    Author = db.Column(db.String(20))
+    Address = db.Column(db.String(20))
+    Data = db.Column(db.Integer)
+    Rate = db.Column(db.Integer)
+
 
 
 

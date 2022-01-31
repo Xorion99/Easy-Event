@@ -25,10 +25,10 @@ body {
   text-transform: uppercase;
   padding: 20px 0;
 }
-.rating-css input {
+.rate1  {
   display: none;
 }
-.rating-css input + label {
+.rate1 + label {
   font-size: 60px;
   text-shadow: 1px 1px 0 white;
   cursor: pointer;

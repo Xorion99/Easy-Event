@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, EmailField, IntegerField, DateField, TimeField, DateTimeField
+from wtforms import StringField, PasswordField, SubmitField, EmailField, IntegerField, DateField, TimeField, DateTimeField, RadioField
 from wtforms.validators import InputRequired, Length, ValidationError, Email, DataRequired, NumberRange
 
 
@@ -60,4 +60,9 @@ class JoinForm(FlaskForm):
     email = EmailField(validators=[DataRequired(), Email()],render_kw={"placeholder": "Enter your email here"})
     submit = SubmitField("Join Event")
 
-
+class RateForm(FlaskForm):
+    rate1 = RadioField()
+    rate2 = RadioField()
+    rate3 = RadioField()
+    rate4 = RadioField()
+    rate5 = RadioField()

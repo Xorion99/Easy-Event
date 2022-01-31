@@ -24,7 +24,7 @@
 </blockquote>
 
 
-<a href="/login"  class="button">Create new event</a>
+<a href="/loginfornewevent"  class="button">Create new event</a>
 
       <form action="/" method="post" autocomplete="off">
       <div class="d-flex justify-content-center h-100">
@@ -123,18 +123,17 @@
     <td colspan="7" align="center">{{empty}}</td>
   </tr>
   {%else%}
-  {# {% for event in event.items %} #}
+   {#  {% for event in joined_event %} #}
     <tr>
         <td></td>
+        <td>{{ joined_event}}</td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td> <input type="button" href="#"  class="button-join-table" value="Rate" /></td>
+        <td> <input type="button" onclick="window.location.href='/rate'" href="#"   class="button-join-table" value="Rate" /></td>
     </tr>
   {# {% endfor %} #}
-
 
   {%endif%}
 

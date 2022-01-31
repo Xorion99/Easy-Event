@@ -6,7 +6,7 @@ from flask_bcrypt import Bcrypt
 from datetime import datetime
 from sqlalchemy import or_
 import model
-from form import LoginForm, RegisterForm, EventForm, JoinForm
+from form import LoginForm, RegisterForm, EventForm, JoinForm, RateForm
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 
 app = Flask(__name__)
@@ -45,6 +45,7 @@ def load_user(user_id):
 # @login_required
 def index(page):
     from model import Event
+    form = JoinForm()
     page = page
     pages = 5
     event = Event.query.paginate(page, pages, error_out=False)
@@ -57,8 +58,14 @@ def index(page):
             empty = "there are not event in this zone"
         return render_template('homepage/index.html', event=event, tag=tag, empty=empty)
 
+    joined_event = []
+    if form.validate_on_submit():
+        joined_event[0] = Event.name
+        return redirect(url_for('index'))
 
-    return render_template('homepage/index.html', event=event)
+
+
+    return render_template('homepage/index.html', event=event, joined_event=joined_event)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -125,15 +132,52 @@ def newevent():
         return redirect(url_for('index'))
     return render_template('create_event/index.html', form=form)
 
+@app.route('/loginfornewevent', methods=['GET', 'POST'])
+def loginfornewevent():
+    from model import User
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(Username=form.username.data).first()
+        if user:
+            if bcrypt.check_password_hash(user.Password, form.password.data):
+                return redirect(url_for('newevent'))
+
+    return render_template('login2/index.html', form=form)
+
+
+@app.route('/signupfornewevent', methods=['GET', 'POST'])
+def sign_up_fornewevent():
+    from model import User
+    form = RegisterForm()
+    if form.validate_on_submit():
+        ashed_password = bcrypt.generate_password_hash(form.Password.data)
+        new_user = User(Username=form.Username.data, Name=form.Name.data,
+                        Surname=form.Surname.data, Email=form.Email.data,
+                        Age=form.Age.data, Password=ashed_password, Language=form.Language.data)
+        flash('Account created!', 'success')
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('loginfornewevent'))
+    return render_template('registration2/index.html', form=form)
+
+
+
 
 @app.route('/join')
 def join():
+    from model import Event
     form = JoinForm()
-    return render_template('join/index.html', form = form)
+    return render_template('join/index.html', form=form)
+
 
 @app.route('/rate')
 def rate():
-    return render_template('rate/index.html')
+    form = RateForm()
+    if form.validate_on_submit():
+        print("provaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        return redirect(url_for('index'))
+
+    return render_template('rate/index.html',form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)

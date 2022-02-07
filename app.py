@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///DATABASE'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///DATABASE.sqlite'
 app.config['SECRET_KEY'] = 'jbhkkjbhdnslk98723bkj4o'
 
 # aggiungo sqlalchemy all'app
@@ -44,11 +44,13 @@ def load_user(user_id):
 @app.route('/<int:page>', methods=['GET', 'POST'])
 # @login_required
 def index(page):
-    from model import Event
+    from model import Event, join_Event
     form = JoinForm()
     page = page
     pages = 5
     event = Event.query.paginate(page, pages, error_out=False)
+
+    joined_Event = join_Event.query.all()
     if request.method == 'POST' and 'tag' in request.form:
         tag = request.form["tag"]
         search = "%{}%".format(tag)
@@ -58,14 +60,7 @@ def index(page):
             empty = "there are not event in this zone"
         return render_template('homepage/index.html', event=event, tag=tag, empty=empty)
 
-    joined_event = []
-    if form.validate_on_submit():
-        joined_event[0] = Event.name
-        return redirect(url_for('index'))
-
-
-
-    return render_template('homepage/index.html', event=event, joined_event=joined_event)
+    return render_template('homepage/index.html', event=event, joined_Event= joined_Event)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -124,7 +119,8 @@ def newevent():
         event = Event(Name=form.name.data, Organiser=form.organiser.data, Date=x,
                       Position=form.position.data,
                       Number_of_entrance=form.numberentrance.data, Ticket_price=form.price.data,
-                      Typology=form.typology.data)
+                      Typology=form.typology.data
+                      )
 
         flash('Event created!', 'success')
         db.session.add(event)
@@ -163,21 +159,45 @@ def sign_up_fornewevent():
 
 
 
-@app.route('/join')
-def join():
-    from model import Event
-    form = JoinForm()
-    return render_template('join/index.html', form=form)
+@app.route('/join/<int:id>' , methods=["GET","POST"])
+def join(id):
+    from model import Event, join_Event
+    join_form = JoinForm()
+    if request.method == "POST":
+        Email = join_form.email.data
+        e_data = Event.query.get(id)
+        event = join_Event(Email=Email,Name=e_data.Name, Organiser=e_data.Organiser, Date=e_data.Date,
+                Position=e_data.Position,
+                Number_of_entrance=int(e_data.Number_of_entrance), Ticket_price=int(e_data.Ticket_price),
+                Typology=e_data.Typology
+                      )
+        db.session.add(event)
+        db.session.commit()
+
+        return redirect("/")
+
+    return render_template('join/index.html', form=join_form, id=id)
 
 
 @app.route('/rate')
-def rate():
+def rating():
     form = RateForm()
-    if form.validate_on_submit():
-        print("provaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        return redirect(url_for('index'))
+    return render_template("rate/index.html", form = form)
 
-    return render_template('rate/index.html',form=form)
+
+@app.route('/rate/<int:id>', methods=["GET","POST"])
+def rate(id):
+    from model import Feedback
+
+    data = Feedback(Rate=id)
+
+    db.session.add(data)
+    db.session.commit()
+
+    return redirect("/")
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

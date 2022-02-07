@@ -68,7 +68,7 @@
         <td>{{ event.Date }}</td>
         <td>{{ event.Ticket_price }}</td>
         <td>{{ event.Typology }}</td>
-        <td> <input type="button" onclick="window.location.href='/join'"  class="button-join-table" value="Join"  /> </td>
+        <td> <input type="button" onclick="window.location.href='/join/{{event.Number}}'"  class="button-join-table" value="Join"  /> </td>
 
     </tr>
       {% endif %}
@@ -123,17 +123,17 @@
     <td colspan="7" align="center">{{empty}}</td>
   </tr>
   {%else%}
-   {#  {% for event in joined_event %} #}
+     {% for event in joined_Event %}
     <tr>
-        <td></td>
-        <td>{{ joined_event}}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{event.Name}}</td>
+        <td>{{event.Organiser}}</td>
+        <td>{{event.Position}}</td>
+        <td>{{event.Date}}</td>
+        <td>{{event.Ticket_price}}</td>
+        <td>{{event.Typology}}</td>
         <td> <input type="button" onclick="window.location.href='/rate'" href="#"   class="button-join-table" value="Rate" /></td>
     </tr>
-  {# {% endfor %} #}
+   {% endfor %}
 
   {%endif%}
 

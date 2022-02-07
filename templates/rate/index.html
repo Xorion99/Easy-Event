@@ -9,24 +9,48 @@
 </head>
 
 <body>
-<form action="/" method="post">
+<form id="myform" action="/" method="post">
+
   <div class="rating-css">
     <div>PLEASE RATE<br>THIS EVENT</div>
     <div class="star-icon">
-      {{ form.rate1(class="rate1") }}
-      <label for="rating1" class="fa fa-star"></label>
+      <a href="/rate/1" style="text-decoration: none; color: yellow">
+        {{ form.rate1(class="rate1") }}
+     <label for="rating" class="fa fa-star"></label>
+   </a>
+
+
+
+   <a href="/rate/2" style="text-decoration: none; color: yellow">
       {{ form.rate2(class="rate1") }}
       <label for="rating2" class="fa fa-star"></label>
+
+    </a>
+
+    <a href="/rate/3" style="text-decoration: none; color: yellow">
       {{ form.rate3(class="rate1") }}
       <label for="rating3" class="fa fa-star"></label>
+    </a>
+
+    <a href="/rate/4" style="text-decoration: none; color: yellow">
       {{ form.rate4(class="rate1") }}
       <label for="rating4" class="fa fa-star"></label>
+    </a>
+
+    <a href="/rate/5" style="text-decoration: none; color: yellow">
       {{ form.rate5(class="rate1") }}
       <label for="rating5" class="fa fa-star"></label>
+    </a>
     </div>
   </div>
 </form>
 
 </body>
 
+<script type="text/javascript">
+  function myFunction() {
+  document.getElementById("myForm").submit();
+}
+</script>
+</script>
 </html>

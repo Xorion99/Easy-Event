@@ -43,6 +43,17 @@ class Event(db.Model, UserMixin):
     Typology = db.Column(db.String(20))
 
 
+class join_Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    Email = db.Column(db.String(100))
+    Name = db.Column(db.String(20), nullable=False)
+    Organiser = db.Column(db.String(20), nullable=False)
+    Position = db.Column(db.String(20), db.ForeignKey(Position.Zone), nullable=False)
+    Date = db.Column(db.DateTime, nullable=False)
+    Number_of_entrance = db.Column(db.Integer, nullable=False)
+    Ticket_price = db.Column(db.Integer)
+    Typology = db.Column(db.String(20))
+
 
 class Feedback(db.Model):
     No = db.Column(db.Integer, primary_key=True, autoincrement=True)

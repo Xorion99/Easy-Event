@@ -46,6 +46,13 @@
         border: 4px solid #ffff;
     }
 
+    a{
+        color: white;
+        position: relative;
+        left: 90%;
+
+    }
+
     .searchbar:hover > .search_input{
     padding: 0 10px;
     width: 450px;

@@ -182,7 +182,7 @@ def join(id):
 @app.route('/rate')
 def rating():
     form = RateForm()
-    return render_template("rate/index.html", form = form)
+    return render_template("rate/index.html", form =form)
 
 
 @app.route('/rate/<int:id>', methods=["GET","POST"])
@@ -197,6 +197,9 @@ def rate(id):
     return redirect("/")
 
 
+@app.route('/aboutus')
+def about_us():
+    return render_template("about_us/index.html")
 
 
 if __name__ == '__main__':

@@ -51,7 +51,7 @@ def index(page):
         empty = ""
         if not event.items:
             empty = "there are not event in this zone"
-        return render_template('homepage/index.html', event=event, tag=tag, empty=empty)
+        return render_template('homepage/index.html', event=event, tag=tag, empty=empty,joined_Event= joined_Event)
     return render_template('homepage/index.html', event=event, joined_Event= joined_Event)
 
 
@@ -200,9 +200,11 @@ def about_us():
 def conditions():
     return render_template("conditions/index.html")
 
-@app.route('/notfound')
-def notfound():
-    return render_template("notfound/index.html")
+@app.errorhandler(404)
+def notfound(error):
+   return render_template("notfound/index.html"),404
+
+
 
 
 if __name__ == '__main__':

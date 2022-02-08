@@ -5,6 +5,7 @@
 
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -17,7 +18,7 @@
           <img class="logo" src="/static/login/logo.png" alt="img" width="10%">
       </div>
       <div>
-          <a class="aboutus" href="/aboutus">About us</a>
+          <a class="aboutus" href="/aboutus" style="color: white" >About us</a>
       </div>
   </header>
 
@@ -41,7 +42,7 @@
       </form>
     </div>
 
-<div class="row">
+<div class="row" id="show_table">
 <div class="col">
   <table class="table table-dark">
   <thead>
@@ -63,7 +64,7 @@
   </tr>
   {%else%}
   {% for event in event.items %}
-      {% if event.Date.now()%}
+
     <tr>
         <td>{{ event.Name }}</td>
         <td>{{ event.Organiser }}</td>
@@ -72,9 +73,7 @@
         <td>{{ event.Ticket_price }}</td>
         <td>{{ event.Typology }}</td>
         <td> <input type="button" onclick="window.location.href='/join/{{event.Number}}'"  class="button-join-table" value="Join"  /> </td>
-
     </tr>
-      {% endif %}
   {% endfor %}
 
 
@@ -102,12 +101,12 @@
     </nav>
 </div>
 </div>
+<!-- INIZIO TABELLA YOUR EVENT -->
+
 
   <p class="mb-1">Your Event</p>
-
-
-
-  <table class="table table-dark-2">
+<div>
+  <table class="table table-dark-2" style="color: white">
   <thead>
     <tr>
       <th scope="col">name</th>
@@ -117,35 +116,35 @@
       <th scope="col">Ticket Price</th>
       <th scope="col">Typology</th>
       <th scope="col">Rate</th>
+      <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
 
-  {%if empty%}
+
   <tr>
-    <td colspan="7" align="center">{{empty}}</td>
+
   </tr>
-  {%else%}
-     {% for event in joined_Event %}
+     {% for event2 in joined_Event %}
     <tr>
-        <td>{{event.Name}}</td>
-        <td>{{event.Organiser}}</td>
-        <td>{{event.Position}}</td>
-        <td>{{event.Date}}</td>
-        <td>{{event.Ticket_price}}</td>
-        <td>{{event.Typology}}</td>
+        <td>{{event2.Name}}</td>
+        <td>{{event2.Organiser}}</td>
+        <td>{{event2.Position}}</td>
+        <td>{{event2.Date}}</td>
+        <td>{{event2.Ticket_price}}</td>
+        <td>{{event2.Typology}}</td>
         <td> <input type="button" onclick="window.location.href='/rate'" href="#"   class="button-join-table" value="Rate" /></td>
+        <td> <input type="button" onclick="window.location.href='/delete/{{ event2.id }}'" class="button-join-table1" value="Delete" /></td>
     </tr>
    {% endfor %}
 
-  {%endif%}
 
 
   </tbody>
  </table>
 
 
-
+</div>
   </body>
 
 

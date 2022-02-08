@@ -66,3 +66,4 @@ class RateForm(FlaskForm):
     rate3 = RadioField()
     rate4 = RadioField()
     rate5 = RadioField()
+

@@ -174,8 +174,6 @@ def delete(id):
 
 
 
-
-
 @app.route('/rate')
 def rating():
     form = RateForm()
@@ -199,6 +197,14 @@ def about_us():
 @app.route('/conditions')
 def conditions():
     return render_template("conditions/index.html")
+
+@app.route('/rateus')
+def rateus():
+    return render_template("rate_us/index.html")
+
+@app.route('/contact')
+def contact():
+    return render_template("contact/index.html")
 
 @app.errorhandler(404)
 def notfound(error):

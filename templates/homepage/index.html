@@ -21,9 +21,10 @@
           <img class="logo" src="/static/login/logo.png" alt="img" width="10%">
       </div>
       <div>
-          <a class="aboutus" href="/aboutus" style="color: white" >About us</a>
+          <a class="aboutus" href="/aboutus" style="color: white;" >About us</a>
       </div>
-
+      <button onclick="window.location.href='/login'" style="color: #FFFFFF;background-color: #BA1B4E; border-color:white;position: relative;margin-left: 93%; margin-top: -2%;width: 5%">Login</button>
+      <button onclick="window.location.href='/signup'" style="color: #FFFFFF;background-color: #BA1B4E; border-color:white;position: relative;margin-left: 93%; margin-top: 1%;width: 5%">Sign up</button>
        <script>
 function func() {
   var x = document.getElementById("show_table");
@@ -50,9 +51,8 @@ function func() {
       <form action="/" method="post" autocomplete="off">
       <div class="d-flex justify-content-center h-100">
         <div class="searchbar">
-            <p class="mb-0">Search for the Via or Zone</p>
-
           <input class="search_input" type="text" name="tag" id="tag" placeholder="Search...">
+            <p class="mb-0">Search for the Via or Zone</p>
           <button onclick="func()"  style="background: #BA1B4E;color: #fff;cursor: pointer;" class="search_icon" type="submit"><i class="fas fa-search"></i></button>
         </div>
       </div>

@@ -39,7 +39,7 @@
     background: none;
     font-size: 16px;
     padding: 0 20px;
-    background: #FF9800;
+    background: #BA1B4E;
     color: #fff;
     border: 2px solid #fff;
     border-radius: 50px;
@@ -66,7 +66,7 @@
     transition: 0.4s;
 }
 #newsletter .social-links a:hover {
-    background: #FF9800;
+    background: #BA1B4E;
     color: #fff;
     text-decoration: none;
 }

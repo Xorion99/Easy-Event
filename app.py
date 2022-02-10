@@ -18,21 +18,10 @@ app.config['SECRET_KEY'] = 'jbhkkjbhdnslk98723bkj4o'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
-file_handler = FileHandler('errorlog.txt')
-file_handler.setLevel(WARNING)
 
 
 
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = "login"
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    from model import User
-    return User.query.get(int(user_id))
 
 
 @app.route('/', methods=['GET', 'POST'], defaults={"page": 1})

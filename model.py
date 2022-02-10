@@ -63,6 +63,14 @@ class Feedback(db.Model):
     Rate = db.Column(db.Integer)
 
 
+class Host(db.Model):
+    HostID = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    Email = db.Column(db.String(20))
+    Name = db.Column(db.String(20))
+    Position = db.Column(db.String(20))
+    Typology = db.Column(db.String(20))
+
+
 
 
 db.create_all()

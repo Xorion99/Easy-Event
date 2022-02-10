@@ -162,6 +162,23 @@ def join(id):
     return render_template('join/index.html', form=join_form, id=id)
 
 
+@app.route('/joinpayment/<int:id>',methods=['GET', 'POST'])
+def joinpayment(id):
+    from model import Event, join_Event
+    join_form = JoinForm()
+    if request.method == "POST":
+        Email = join_form.email.data
+        e_data = Event.query.get(id)
+        event = join_Event(Email=Email, Name=e_data.Name, Organiser=e_data.Organiser, Date=e_data.Date,
+                           Position=e_data.Position,
+                           Number_of_entrance=int(e_data.Number_of_entrance), Ticket_price=int(e_data.Ticket_price),
+                           Typology=e_data.Typology)
+        db.session.add(event)
+        db.session.commit()
+
+        return redirect("/")
+    return render_template('join_payment/index.html', form=join_form, id=id)
+
 @app.route('/delete/<id>/', methods=['GET','POST'])
 def delete(id):
     print(id)

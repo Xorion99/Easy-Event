@@ -89,7 +89,12 @@ function func() {
         <td>{{ event.Date }}</td>
         <td>{{ event.Ticket_price }}</td>
         <td>{{ event.Typology }}</td>
+        {% if event.Ticket_price == 0 %}
         <td> <input type="button" onclick="window.location.href='/join/{{event.Number}}'"  class="button-join-table" value="Join"  /> </td>
+        {% else %}
+        <td> <input type="button" onclick="window.location.href='/joinpayment/{{event.Number}}'"  class="button-join-table" value="Join"  /> </td>
+        {% endif %}
+
     </tr>
   {% endfor %}
 

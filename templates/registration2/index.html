@@ -49,7 +49,14 @@
 					{{ form.Submit }}
 				</form>
 				<p>do you already have an account? <a href="{{url_for('login') }}"> Login Now!</a></p>
+                <div style="color: red;position: relative; left: 32%">
+                    {% for message in get_flashed_messages() %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
 			</div>
+
+
 		</div>
 		<!-- copyright -->
 		<div class="colorlibcopy-agile">

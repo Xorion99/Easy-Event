@@ -1,10 +1,9 @@
 from flask import Flask, render_template, url_for, redirect, flash, request
-from logging import FileHandler, WARNING
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from datetime import datetime
 from form import LoginForm, RegisterForm, EventForm, JoinForm, RateForm
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+
 
 app = Flask(__name__)
 
@@ -49,14 +48,17 @@ def sign_up():
     from model import User
     form = RegisterForm()
     if form.validate_on_submit():
-        ashed_password = bcrypt.generate_password_hash(form.Password.data)
-        new_user = User(Username=form.Username.data, Name=form.Name.data,
-                        Surname=form.Surname.data, Email=form.Email.data,
-                        Age=form.Age.data, Password=ashed_password, Language=form.Language.data)
-        flash('Account created!', 'success')
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect(url_for('login'))
+        if form.Password.data != form.Confirm_password.data:
+            flash('password do not match')
+        else:
+            ashed_password = bcrypt.generate_password_hash(form.Password.data)
+
+            new_user = User(Username=form.Username.data, Name=form.Name.data,
+                            Surname=form.Surname.data, Email=form.Email.data,
+                            Age=form.Age.data, Password=ashed_password, Language=form.Language.data)
+            db.session.add(new_user)
+            db.session.commit()
+            return redirect(url_for('login'))
     return render_template('registration/index.html', form=form)
 
 
@@ -69,7 +71,10 @@ def login():
         if user:
             if bcrypt.check_password_hash(user.Password, form.password.data):
                 return redirect(url_for('index'))
-
+            else:
+                flash('Wrong Password')
+        else:
+            flash('Wrong Username')
     return render_template('login/index.html', form=form)
 
 
@@ -95,7 +100,6 @@ def newevent():
                       Typology=form.typology.data
                       )
 
-        flash('Event created!', 'success')
         db.session.add(event)
         db.session.commit()
         return redirect(url_for('index'))
@@ -110,6 +114,10 @@ def loginfornewevent():
         if user:
             if bcrypt.check_password_hash(user.Password, form.password.data):
                 return redirect(url_for('newevent'))
+            else:
+                flash('Wrong Password')
+        else:
+                flash('Wrong Username')
 
     return render_template('login2/index.html', form=form)
 
@@ -119,14 +127,18 @@ def sign_up_fornewevent():
     from model import User
     form = RegisterForm()
     if form.validate_on_submit():
-        ashed_password = bcrypt.generate_password_hash(form.Password.data)
-        new_user = User(Username=form.Username.data, Name=form.Name.data,
-                        Surname=form.Surname.data, Email=form.Email.data,
-                        Age=form.Age.data, Password=ashed_password, Language=form.Language.data)
-        flash('Account created!', 'success')
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect(url_for('loginfornewevent'))
+        if form.Password.data != form.Confirm_password.data:
+            flash('password do not match')
+        else:
+            ashed_password = bcrypt.generate_password_hash(form.Password.data)
+
+            new_user = User(Username=form.Username.data, Name=form.Name.data,
+                            Surname=form.Surname.data, Email=form.Email.data,
+                            Age=form.Age.data, Password=ashed_password, Language=form.Language.data)
+            flash('Account created!', 'success')
+            db.session.add(new_user)
+            db.session.commit()
+            return redirect(url_for('loginfornewevent'))
     return render_template('registration2/index.html', form=form)
 
 
@@ -211,6 +223,10 @@ def rateus():
 @app.route('/contact')
 def contact():
     return render_template("contact/index.html")
+
+@app.route('/forgotpassword')
+def forgotpassword():
+    return render_template("forgot_password/index.html")
 
 @app.errorhandler(404)
 def notfound(error):

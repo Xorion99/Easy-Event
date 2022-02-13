@@ -43,21 +43,28 @@
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">
 								<input type="checkbox" class="custom-control-input" id="customControlInline">
-								<label class="custom-control-label" for="customControlInline">Remember me</label>
+								<label style="color: #FFFFFF" class="custom-control-label" for="customControlInline">Remember me</label>
 							</div>
 						</div>
 							<div class="d-flex justify-content-center mt-3 login_container">
-                                {{ form.submit }}
+                                {{ form.submit}}
+
 				   </div>
+                <div style="color: red;position: relative; left: 9%">
+                    {% for message in get_flashed_messages() %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
 					</form>
 				</div>
 
+
 				<div class="mt-4">
-					<div class="d-flex justify-content-center links">
+					<div class="d-flex justify-content-center links" style="color: #FFFFFF">
 						Don't have an account? <a href="{{url_for('sign_up')}}" style="color: white" class="ml-2">Sign Up</a>
 					</div>
 					<div class="d-flex justify-content-center links">
-						<a href="#" style="color: white">Forgot your password?</a>
+						<a href="/forgotpassword" style="color: white">Forgot your password?</a>
 					</div>
 				</div>
 			</div>

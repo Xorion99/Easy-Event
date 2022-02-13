@@ -1,13 +1,8 @@
 from flask_login import UserMixin
 from app import db
-from datetime import datetime
 
 
-def FormatDateNow():
 
-    now = datetime.datetime.now()
-    change = now.strftime("%y/%m/%d %H:%M %p")
-    return datetime.datetime.strptime(change, "%y/%m/%d %H:%M %p")
 
 
 

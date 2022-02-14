@@ -66,4 +66,8 @@ class RateForm(FlaskForm):
     rate3 = RadioField()
     rate4 = RadioField()
     rate5 = RadioField()
+    Username = StringField(validators=[InputRequired(), Length(min=4, max=20)],
+                       render_kw={"placeholder": "Author"})
+    submit = SubmitField("Submit")
+
 

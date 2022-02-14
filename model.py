@@ -3,9 +3,6 @@ from app import db
 
 
 
-
-
-
 class User(db.Model, UserMixin):
     Username = db.Column(db.String(20), nullable=False, unique=True, primary_key=True)
     Name = db.Column(db.String(20), nullable=False)

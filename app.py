@@ -182,10 +182,8 @@ def joinpayment(id):
 
 @app.route('/delete/<id>/', methods=['GET','POST'])
 def delete(id):
-    print(id)
     from model import join_Event
     delete_event = db.session.query(join_Event).filter(join_Event.id == id).first()
-    flash("Evenet deleted")
     db.session.delete(delete_event)
     db.session.commit()
     return redirect("/")
@@ -201,11 +199,12 @@ def rating():
 @app.route('/rate/<int:id>', methods=["GET","POST"])
 def rate(id):
     from model import Feedback
-    data = Feedback(Rate=id)
+    x = datetime.now()
+    data = Feedback(Rate=id, Data=x)
     db.session.add(data)
     db.session.commit()
-
     return redirect("/")
+
 
 
 @app.route('/aboutus')

@@ -27,7 +27,6 @@ bcrypt = Bcrypt(app)
 @app.route('/<int:page>', methods=['GET', 'POST'])
 def index(page):
     from model import Event, join_Event
-    form = JoinForm()
     page = page
     pages = 5
     event = Event.query.paginate(page, pages, error_out=False)
@@ -81,7 +80,6 @@ def login():
 
 
 @app.route('/newevent', methods=['GET', 'POST'])
-
 def newevent():
     from model import Event
 
@@ -92,7 +90,7 @@ def newevent():
         x = datetime.combine(d, t)
 
         formt = x.strftime("%d/%m/%Y %H:%M")
-        print(formt)
+
 
         event = Event(Name=form.name.data, Organiser=form.organiser.data, Date=x,
                       Position=form.position.data,
@@ -157,7 +155,6 @@ def join(id):
                 Typology =e_data.Typology)
         db.session.add(event)
         db.session.commit()
-
         return redirect("/")
 
     return render_template('join/index.html', form=join_form, id=id)
